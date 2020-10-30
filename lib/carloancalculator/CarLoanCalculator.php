@@ -5,15 +5,25 @@
 
 namespace carloancalculator;
 
+use \maglev\MagLevNumber;
+use \maglev\MagLevString;
 use \php\_Boot\HxAnon;
+use \maglev\MagLevFunction;
 use \php\Boot;
+use \maglev\MagLevResult;
 use \maglev\MagLev;
+use \maglev\MagLevArray;
+use \maglev\MagLevObject;
 
 /**
  * Car Loan Calculator
  */
 class CarLoanCalculator {
 
+	/**
+	 * @var Calc
+	 */
+	public $calc;
 	/**
 	 * @var MagLev
 	 */
@@ -27,6 +37,90 @@ class CarLoanCalculator {
 	public function __construct ($maglev) {
 		#/src/carloancalculator/CarLoanCalculator.hx:15: characters 3-23
 		$this->maglev = $maglev;
+		#/src/carloancalculator/CarLoanCalculator.hx:16: characters 3-25
+		$this->calc = new Calc();
+		#/src/carloancalculator/CarLoanCalculator.hx:17: characters 3-22
+		$this->registerMyMethods();
+	}
+
+	/**
+	 * @return void
+	 */
+	public function registerMyMethods () {
+		#/src/carloancalculator/CarLoanCalculator.hx:19: lines 19-67
+		$_gthis = $this;
+		#/src/carloancalculator/CarLoanCalculator.hx:20: lines 20-44
+		$this->maglev->register("CarLoanCalculator.CalcPayments", MagLevFunction::fromFunction(function ($args) use (&$_gthis) {
+			#/src/carloancalculator/CarLoanCalculator.hx:21: characters 4-71
+			$newCarPrice = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(0)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:22: characters 4-76
+			$tradeInAllowance = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(1)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:23: characters 4-78
+			$tradeInLoanBalance = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(2)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:24: characters 4-81
+			$downPaymentAndRebates = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(3)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:25: characters 4-72
+			$loanDuration = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(4)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:26: characters 4-72
+			$salesTaxRate = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(5)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:27: characters 4-72
+			$interestRate = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(6)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:28: lines 28-34
+			$payments = $_gthis->calc->calcPayments($newCarPrice, $tradeInAllowance, $tradeInLoanBalance, $downPaymentAndRebates, $loanDuration, $salesTaxRate, $interestRate);
+			#/src/carloancalculator/CarLoanCalculator.hx:35: characters 4-35
+			$arr = MagLevArray::create();
+			#/src/carloancalculator/CarLoanCalculator.hx:36: lines 36-42
+			$_g = 0;
+			while ($_g < $payments->length) {
+				#/src/carloancalculator/CarLoanCalculator.hx:36: characters 8-15
+				$payment = ($payments->arr[$_g] ?? null);
+				#/src/carloancalculator/CarLoanCalculator.hx:36: lines 36-42
+				++$_g;
+				#/src/carloancalculator/CarLoanCalculator.hx:37: characters 5-37
+				$obj = MagLevObject::create();
+				#/src/carloancalculator/CarLoanCalculator.hx:38: characters 5-69
+				$obj->set("frequency", MagLevString::fromString($payment->frequency));
+				#/src/carloancalculator/CarLoanCalculator.hx:39: characters 5-64
+				$obj->set("payment", MagLevNumber::fromFloat($payment->payment));
+				#/src/carloancalculator/CarLoanCalculator.hx:40: characters 5-66
+				$obj->set("interest", MagLevNumber::fromFloat($payment->interest));
+				#/src/carloancalculator/CarLoanCalculator.hx:41: characters 5-18
+				$arr->push($obj);
+			}
+			#/src/carloancalculator/CarLoanCalculator.hx:43: characters 4-39
+			return MagLevResult::fromResult($arr);
+		}));
+		#/src/carloancalculator/CarLoanCalculator.hx:45: lines 45-66
+		$this->maglev->register("CarLoanCalculator.CalcAffordability", MagLevFunction::fromFunction(function ($args) use (&$_gthis) {
+			#/src/carloancalculator/CarLoanCalculator.hx:46: characters 4-74
+			$monthlyPayment = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(0)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:47: characters 4-76
+			$tradeInAllowance = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(1)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:48: characters 4-78
+			$tradeInLoanBalance = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(2)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:49: characters 4-81
+			$downPaymentAndRebates = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(3)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:50: characters 4-72
+			$loanDuration = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(4)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:51: characters 4-72
+			$salesTaxRate = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(5)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:52: characters 4-72
+			$interestRate = (Boot::typedCast(Boot::getClass(MagLevNumber::class), $args->get(6)))->getFloat();
+			#/src/carloancalculator/CarLoanCalculator.hx:53: lines 53-59
+			$result = $_gthis->calc->calcAffordability($monthlyPayment, $tradeInAllowance, $tradeInLoanBalance, $downPaymentAndRebates, $loanDuration, $salesTaxRate, $interestRate);
+			#/src/carloancalculator/CarLoanCalculator.hx:60: characters 4-36
+			$obj = MagLevObject::create();
+			#/src/carloancalculator/CarLoanCalculator.hx:61: characters 4-58
+			$obj->set("price", MagLevNumber::fromFloat($result->price));
+			#/src/carloancalculator/CarLoanCalculator.hx:62: characters 4-54
+			$obj->set("tax", MagLevNumber::fromFloat($result->tax));
+			#/src/carloancalculator/CarLoanCalculator.hx:63: characters 4-64
+			$obj->set("interest", MagLevNumber::fromFloat($result->interest));
+			#/src/carloancalculator/CarLoanCalculator.hx:64: characters 4-58
+			$obj->set("total", MagLevNumber::fromFloat($result->total));
+			#/src/carloancalculator/CarLoanCalculator.hx:65: characters 4-39
+			return MagLevResult::fromResult($obj);
+		}));
 	}
 
 	/**
