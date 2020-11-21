@@ -1,13 +1,13 @@
 {
     "name": "mindpowered/carloancalculator",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "CarLoanCalculator",
     "license": "CPAL-1.0",
     "autoload": {
         "psr-4": {
             "haxe\\": "lib/haxe/",
             "carloancalculator\\": "lib/carloancalculator/",
-            "mindpowered\\wrappers\\": "lib/wrappers/",
+            "mindpowered\\carloancalculator\\": "lib/wrappers/",
             "php\\": "lib/php/",
             "": "lib/"
         }
