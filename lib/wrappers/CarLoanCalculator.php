@@ -4,7 +4,6 @@ namespace mindpowered\carloancalculator;
 use \maglev\MagLev;
 use \maglev\MagLevPhp;
 use \carloancalculator\CarLoanCalculator as CarLoanCalculator_Library;
-use \persistence\Persistence;
 
 /**
  * Copyright Mind Powered Corporation 2020
@@ -23,9 +22,8 @@ class CarLoanCalculator
 	 * CarLoanCalculator
 	 */
 	function __construct() {
-		$bus = MagLev::getInstance('carloancalculator');
+		$bus = MagLev::getInstance('default');
 		$lib = new CarLoanCalculator_Library($bus);
-		$persistence = new Persistence($bus);
 	}
 
 	/**
@@ -41,10 +39,10 @@ class CarLoanCalculator
 	 */
 	public function CalcPayments($newCarPrice, $tradeInAllowance, $tradeInLoanBalance, $downPaymentAndRebates, $loanDuration, $salesTaxRate, $interestRate)
 	{
-		$phpbus = MagLevPhp::getInstance('carloancalculator');
+		$phpbus = MagLevPhp::getInstance('default');
 		$args = [$newCarPrice, $tradeInAllowance, $tradeInLoanBalance, $downPaymentAndRebates, $loanDuration, $salesTaxRate, $interestRate];
 		$ret = null;
-		$phpbus->call('CarLoanCalculator.CalcPayments', $args, function($async_ret) use (&$ret) { $retn = $async_ret; });
+		$phpbus->call('CarLoanCalculator.CalcPayments', $args, function($async_ret) use (&$ret) { $ret = $async_ret; });
 		return $ret;
 	}
 
@@ -61,10 +59,10 @@ class CarLoanCalculator
 	 */
 	public function CalcAffordability($monthlyPayment, $tradeInAllowance, $tradeInLoanBalance, $downPaymentAndRebates, $loanDuration, $salesTaxRate, $interestRate)
 	{
-		$phpbus = MagLevPhp::getInstance('carloancalculator');
+		$phpbus = MagLevPhp::getInstance('default');
 		$args = [$monthlyPayment, $tradeInAllowance, $tradeInLoanBalance, $downPaymentAndRebates, $loanDuration, $salesTaxRate, $interestRate];
 		$ret = null;
-		$phpbus->call('CarLoanCalculator.CalcAffordability', $args, function($async_ret) use (&$ret) { $retn = $async_ret; });
+		$phpbus->call('CarLoanCalculator.CalcAffordability', $args, function($async_ret) use (&$ret) { $ret = $async_ret; });
 		return $ret;
 	}
 
