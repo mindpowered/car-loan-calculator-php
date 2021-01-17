@@ -1,6 +1,6 @@
 {
     "name": "mindpowered/carloancalculator",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "Car Loan Auto Loan Payment Calculator - Calculate financing on a new car including trade-in and taxes",
     "license": "CPAL-1.0",
     "autoload": {
